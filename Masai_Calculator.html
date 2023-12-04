@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASAI CALCULATOR GRID</title>
+    <style>
+        #parent {
+            width: 430px;
+            height: auto;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            padding: 45px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 45px;
+            color: #66aabb;
+        }
+
+        #output {
+            grid-column: 1/5;
+            height: 70px;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border: none;
+            font-size: 50px;
+        }
+
+        button {
+            border: none;
+            background-color: white;
+            text-align: center;
+            padding: 27px;
+            font-weight: bold;
+            font-size: 30px;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        .child1,
+        .child3 {
+            border: none;
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 27px;
+            font-weight: bold;
+            font-size: 30px;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        .child2 {
+            border: none;
+            background-color: red;
+            color: white;
+            text-align: center;
+            padding: 27px;
+            font-weight: bold;
+            font-size: 30px;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        button:hover {
+            background-color: darkgray;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Masai Calculator</h1>
+    <div id="parent">
+        <h2 id="output"></h2>
+        <button class="child">1</button>
+        <button class="child">2</button>
+        <button class="child">3</button>
+        <button class="child1">+</button>
+        <button class="child">4</button>
+        <button class="child">5</button>
+        <button class="child">6</button>
+        <button class="child1">-</button>
+        <button class="child">7</button>
+        <button class="child">8</button>
+        <button class="child">9</button>
+        <button class="child1">*</button>
+        <button class="child2">C</button>
+        <button class="child">0</button>
+        <button class="child3">=</button>
+        <button class="child1">/</button>
+    </div>
+</body>
+
+<script>
+    let keypad = document.getElementsByClassName("child");
+    let opretor = document.getElementsByClassName("child1");
+    let head = document.getElementById("output");
+    let IsfirstNumber = true;
+    let opt = "";
+   let eual = document.querySelector(".child3");
+   let clear = document.querySelector(".child2");
+
+    let firstNumber = "";
+    let secondNumber = "";
+
+    
+    
+
+    eual.addEventListener("click", function()
+    {
+        head.innerText = calculate(firstNumber,secondNumber,opt);
+    })
+
+    
+    for (let i = 0; i < keypad.length; i++) {
+        keypad[i].addEventListener("click", function () {
+            if (IsfirstNumber == true) {
+                firstNumber += keypad[i].innerText
+                head.innerText = firstNumber
+            }
+            else {
+                secondNumber += keypad[i].innerText
+                head.innerText = secondNumber
+            }
+
+        })
+    }
+
+    for (let i = 0; i < opretor.length; i++) {
+        opretor[i].addEventListener("click", function ()
+        {
+            IsfirstNumber = false;
+            opt = opretor[i].innerText;
+        })
+    }
+
+    clear.addEventListener("click" , function()
+    {
+        firstNumber = "";
+        secondNumber = "";
+        opt = "";
+        IsfirstNumber = true;
+        head.innerText = "";
+    });
+
+    function calculate(firstNumber,secondNumber,opt)
+    {
+        switch(opt)
+        {
+            case "+" :
+            return Number(firstNumber) + Number(secondNumber);
+            case "-" :
+            return Number(firstNumber) - Number(secondNumber);
+            case "*" :
+            return Number(firstNumber) * Number(secondNumber);
+            case "/" :
+            return Number(firstNumber) / Number(secondNumber);
+        }
+    }
+    
+
+
+   
+</script>
+
+</html>
